@@ -21,6 +21,7 @@ describe("API", () => {
       .post("/api/convert")
       .send({
         title: "星桥来信",
+        providerPreference: "mock",
         stylePreset: "webdrama",
         sourceText: `
 第一章 雨夜来信
@@ -37,6 +38,20 @@ describe("API", () => {
     expect(response.status).toBe(200);
     expect(response.body.validation.valid).toBe(true);
     expect(response.body.yaml).toContain("chapters:");
-    expect(response.body.report.provider).toBeDefined();
+    expect(response.body.report.provider).toBe("mock");
+  });
+
+  it("POST /api/convert rejects unknown provider preferences", async () => {
+    const response = await request(app)
+      .post("/api/convert")
+      .send({
+        title: "星桥来信",
+        providerPreference: "unknown",
+        stylePreset: "webdrama",
+        sourceText: "第一章 开端\n有足够长的正文。\n\n第二章 发展\n有足够长的正文。\n\n第三章 结尾\n有足够长的正文。"
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.errors).toContain("providerPreference 必须是 auto、dashscope、openai 或 mock");
   });
 });

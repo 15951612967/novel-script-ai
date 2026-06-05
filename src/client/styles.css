@@ -212,6 +212,13 @@ h3 {
   font-weight: 700;
 }
 
+.control-label {
+  color: #4b5565;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 2px 0 6px;
+}
+
 input,
 textarea {
   border: 1px solid #cbd5e1;
@@ -253,6 +260,37 @@ input {
   box-shadow: 0 1px 4px rgba(17, 24, 39, 0.12);
   color: #2557a7;
   font-weight: 700;
+}
+
+.provider-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 10px;
+}
+
+.provider-grid button {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #26344d;
+  display: grid;
+  gap: 2px;
+  min-height: 52px;
+  padding: 7px 8px;
+}
+
+.provider-grid button.selected {
+  background: #eef5ff;
+  border-color: #2557a7;
+  color: #174785;
+  font-weight: 700;
+}
+
+.provider-grid small {
+  color: #697386;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .novel-area,
@@ -320,6 +358,10 @@ input {
   .panel {
     min-height: 520px;
   }
+
+  .provider-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 560px) {
@@ -334,5 +376,9 @@ input {
   .icon-button,
   .primary-action {
     width: 100%;
+  }
+
+  .provider-grid {
+    grid-template-columns: 1fr;
   }
 }

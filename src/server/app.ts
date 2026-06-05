@@ -1,9 +1,10 @@
 import express from "express";
 import { validateYamlString } from "../shared/schema";
-import type { ConvertRequest, StylePreset } from "../shared/types";
+import type { ConvertRequest, ProviderPreference, StylePreset } from "../shared/types";
 import { convertNovel } from "./converter";
 
 const STYLE_PRESETS: StylePreset[] = ["webdrama", "film", "audio"];
+const PROVIDER_PREFERENCES: ProviderPreference[] = ["auto", "dashscope", "openai", "mock"];
 
 export function createApp() {
   const app = express();
@@ -39,11 +40,15 @@ function parseConvertRequest(body: unknown):
   const title = typeof record.title === "string" ? record.title.trim() : "";
   const sourceText = typeof record.sourceText === "string" ? record.sourceText.trim() : "";
   const stylePreset = record.stylePreset;
+  const providerPreference = record.providerPreference ?? "auto";
 
   if (!title) errors.push("title 必须是非空字符串");
   if (sourceText.length < 30) errors.push("sourceText 至少需要 30 个字符");
   if (!STYLE_PRESETS.includes(stylePreset as StylePreset)) {
     errors.push("stylePreset 必须是 webdrama、film 或 audio");
+  }
+  if (!PROVIDER_PREFERENCES.includes(providerPreference as ProviderPreference)) {
+    errors.push("providerPreference 必须是 auto、dashscope、openai 或 mock");
   }
 
   return errors.length
@@ -53,7 +58,8 @@ function parseConvertRequest(body: unknown):
         value: {
           title,
           sourceText,
-          stylePreset: stylePreset as StylePreset
+          stylePreset: stylePreset as StylePreset,
+          providerPreference: providerPreference as ProviderPreference
         }
       };
 }

@@ -1,5 +1,5 @@
 import { validateYamlString } from "../shared/schema";
-import type { ConversionResult, ConvertRequest, QualityReport } from "../shared/types";
+import type { ConversionResult, ConvertRequest, ProviderPreference, QualityReport } from "../shared/types";
 import { createMockConversion } from "./mockProvider";
 
 interface AiProvider {
@@ -9,11 +9,12 @@ interface AiProvider {
 }
 
 export async function convertNovel(request: ConvertRequest): Promise<ConversionResult> {
-  if (process.env.AI_PROVIDER === "mock") {
+  const providerPreference = resolveProviderPreference(request.providerPreference);
+  if (providerPreference === "mock") {
     return createMockConversion(request);
   }
 
-  const providers = createProviders();
+  const providers = createProviders(providerPreference);
   const warnings: string[] = [];
 
   for (const provider of providers) {
@@ -58,9 +59,25 @@ export async function convertNovel(request: ConvertRequest): Promise<ConversionR
   };
 }
 
-function createProviders(): AiProvider[] {
-  return [
-    {
+export function getProviderOrder(providerPreference: ProviderPreference): Array<Exclude<ProviderPreference, "auto">> {
+  if (providerPreference === "dashscope") return ["dashscope"];
+  if (providerPreference === "openai") return ["openai"];
+  if (providerPreference === "mock") return ["mock"];
+  return ["openai", "dashscope"];
+}
+
+function resolveProviderPreference(providerPreference: ProviderPreference): ProviderPreference {
+  if (providerPreference !== "auto") {
+    return providerPreference;
+  }
+
+  const envProvider = process.env.AI_PROVIDER;
+  return envProvider === "dashscope" || envProvider === "openai" || envProvider === "mock" ? envProvider : "auto";
+}
+
+function createProviders(providerPreference: ProviderPreference): AiProvider[] {
+  const allProviders: Record<Exclude<ProviderPreference, "auto" | "mock">, AiProvider> = {
+    openai: {
       name: "openai",
       enabled: Boolean(process.env.OPENAI_API_KEY),
       convert: (request) =>
@@ -71,18 +88,22 @@ function createProviders(): AiProvider[] {
           request
         })
     },
-    {
+    dashscope: {
       name: "dashscope",
       enabled: Boolean(process.env.DASHSCOPE_API_KEY),
       convert: (request) =>
         callCompatibleChatCompletion({
           endpoint: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
           apiKey: process.env.DASHSCOPE_API_KEY ?? "",
-          model: process.env.DASHSCOPE_MODEL ?? "qwen-plus",
+          model: process.env.DASHSCOPE_MODEL ?? "qwen-max",
           request
         })
     }
-  ];
+  };
+
+  return getProviderOrder(providerPreference)
+    .filter((providerName): providerName is keyof typeof allProviders => providerName !== "mock")
+    .map((providerName) => allProviders[providerName]);
 }
 
 async function callCompatibleChatCompletion(input: {

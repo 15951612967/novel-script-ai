@@ -7,6 +7,7 @@ describe("createMockConversion", () => {
     const result = createMockConversion({
       title: "星桥来信",
       stylePreset: "webdrama",
+      providerPreference: "mock",
       sourceText: `
 第一章 雨夜来信
 林澈在雨夜收到匿名信，信纸背面画着星桥。

@@ -1,4 +1,5 @@
 export type StylePreset = "webdrama" | "film" | "audio";
+export type ProviderPreference = "auto" | "dashscope" | "openai" | "mock";
 
 export interface ChapterDraft {
   index: number;
@@ -10,6 +11,7 @@ export interface ConvertRequest {
   title: string;
   sourceText: string;
   stylePreset: StylePreset;
+  providerPreference: ProviderPreference;
 }
 
 export interface DialogueLine {

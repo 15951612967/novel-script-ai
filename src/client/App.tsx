@@ -10,7 +10,13 @@ import {
 import { useMemo, useState } from "react";
 import { yamlToMarkdownSummary } from "./exporters";
 import { sampleNovel, sampleNovelTitle } from "./sampleNovel";
-import type { QualityReport, ScriptProject, StylePreset, ValidationResult } from "../shared/types";
+import type {
+  ProviderPreference,
+  QualityReport,
+  ScriptProject,
+  StylePreset,
+  ValidationResult
+} from "../shared/types";
 
 type Status = "idle" | "loading" | "ready" | "error";
 
@@ -20,10 +26,18 @@ const styleOptions: Array<{ value: StylePreset; label: string }> = [
   { value: "audio", label: "广播剧" }
 ];
 
+const providerOptions: Array<{ value: ProviderPreference; label: string; hint: string }> = [
+  { value: "mock", label: "本地 Mock", hint: "稳定演示" },
+  { value: "dashscope", label: "阿里云百炼", hint: "qwen-max" },
+  { value: "openai", label: "OpenAI", hint: "可选" },
+  { value: "auto", label: "自动", hint: "按环境" }
+];
+
 export function App() {
   const [title, setTitle] = useState(sampleNovelTitle);
   const [sourceText, setSourceText] = useState(sampleNovel);
   const [stylePreset, setStylePreset] = useState<StylePreset>("webdrama");
+  const [providerPreference, setProviderPreference] = useState<ProviderPreference>("mock");
   const [yaml, setYaml] = useState("");
   const [validation, setValidation] = useState<ValidationResult | null>(null);
   const [report, setReport] = useState<QualityReport | null>(null);
@@ -40,7 +54,7 @@ export function App() {
       const response = await fetch("/api/convert", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, sourceText, stylePreset })
+        body: JSON.stringify({ title, sourceText, stylePreset, providerPreference })
       });
       const payload = await response.json();
       if (!response.ok) {
@@ -80,6 +94,7 @@ export function App() {
     setTitle(sampleNovelTitle);
     setSourceText(sampleNovel);
     setStylePreset("webdrama");
+    setProviderPreference("mock");
     setMessage("样例已载入");
   }
 
@@ -134,6 +149,22 @@ export function App() {
             <span>作品标题</span>
             <input value={title} onChange={(event) => setTitle(event.target.value)} />
           </label>
+          <div className="control-label">模型来源</div>
+          <div className="provider-grid" role="group" aria-label="模型来源">
+            {providerOptions.map((option) => (
+              <button
+                className={providerPreference === option.value ? "selected" : ""}
+                key={option.value}
+                type="button"
+                onClick={() => setProviderPreference(option.value)}
+                title={option.hint}
+              >
+                <span>{option.label}</span>
+                <small>{option.hint}</small>
+              </button>
+            ))}
+          </div>
+          <div className="control-label">剧本风格</div>
           <div className="segmented" role="group" aria-label="剧本风格">
             {styleOptions.map((option) => (
               <button
