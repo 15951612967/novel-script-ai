@@ -1,0 +1,74 @@
+meta:
+  title: 星桥来信
+  source_chapter_count: 3
+  style_preset: webdrama
+characters:
+  - id: char_lin
+    name: 林澈
+    role: 主角
+    goal: 查清十年前星桥事故的真相
+  - id: char_shen
+    name: 沈遥
+    role: 同伴
+    goal: 找回在事故中失踪的父亲
+chapters:
+  - id: ch01
+    title: 第一章 雨夜来信
+    summary: 林澈在档案室收到匿名邮件和旧车票，星桥事故重新浮现。
+  - id: ch02
+    title: 第二章 旧车站
+    summary: 林澈与沈遥在废弃车站会合，铜钥匙成为进入真相的道具。
+  - id: ch03
+    title: 第三章 天台灯塔
+    summary: 两人在天台启动投影仪，蓝色光柱揭开星桥入口。
+scenes:
+  - id: ch01_sc01
+    chapter_id: ch01
+    location: 旧城区档案室
+    time: 午夜
+    dramatic_goal: 用匿名邮件和蓝色雨建立悬念
+    beats:
+      - 蓝色雨落下，电脑自动亮起
+      - 匿名邮件指向旧车站
+      - 林澈发现十年前的车票
+    dialogue:
+      - character: 林澈
+        line: 这封邮件不该出现在内网里。
+      - character: 林澈
+        line: 星桥事故，到底是谁还记得？
+  - id: ch02_sc01
+    chapter_id: ch02
+    location: 北港旧车站
+    time: 夜
+    dramatic_goal: 让主角获得同伴和关键道具
+    beats:
+      - 林澈进入废弃站台
+      - 沈遥说出父亲失踪的关联
+      - 铜钥匙被交给林澈
+    dialogue:
+      - character: 沈遥
+        line: 我等了十年，终于有人收到同样的信。
+      - character: 林澈
+        line: 如果这把钥匙只能用一次，我们就不能走错门。
+  - id: ch03_sc01
+    chapter_id: ch03
+    location: 废弃商厦天台
+    time: 凌晨
+    dramatic_goal: 打开结尾钩子并引出下一阶段
+    beats:
+      - 投影仪重放十年前的车站
+      - 蓝色光柱从城市中心升起
+      - 失踪者声音提示星桥未断
+    dialogue:
+      - character: 沈遥
+        line: 那是我父亲的声音。
+      - character: 林澈
+        line: 桥还在，我们要把故事讲完。
+continuity_notes:
+  - 蓝色雨、旧车票、铜钥匙和投影仪构成连续道具链。
+  - 每章结尾都留下可视化钩子，适合短剧分集。
+  - 沈遥的父亲是下一阶段剧情的核心悬念。
+quality_report:
+  completeness_score: 92
+  issues:
+    - 可继续补充反派或事故制造者的动机。

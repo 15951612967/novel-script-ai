@@ -1,0 +1,338 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #eef1f5;
+  color: #172033;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.topbar {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d8dde7;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 12px;
+  max-width: 1440px;
+  padding: 14px 16px;
+}
+
+.eyebrow {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 0 3px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+.status-pill {
+  align-items: center;
+  background: #f6f7fb;
+  border: 1px solid #d8dde7;
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+.status-pill.ready {
+  background: #e8f6ef;
+  border-color: #a8d8be;
+  color: #17663b;
+}
+
+.status-pill.error {
+  background: #fff0ec;
+  border-color: #f5b4a5;
+  color: #a13a24;
+}
+
+.status-pill.loading {
+  background: #edf4ff;
+  border-color: #aac9f7;
+  color: #215ca8;
+}
+
+.metric-strip {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 auto 12px;
+  max-width: 1440px;
+}
+
+.metric {
+  background: #ffffff;
+  border: 1px solid #d8dde7;
+  border-radius: 8px;
+  min-height: 68px;
+  padding: 11px 13px;
+}
+
+.metric span {
+  color: #697386;
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.metric strong {
+  color: #111827;
+  font-size: 22px;
+}
+
+.workbench {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(340px, 0.9fr) minmax(420px, 1.1fr);
+  margin: 0 auto 12px;
+  max-width: 1440px;
+}
+
+.panel,
+.info-section {
+  background: #ffffff;
+  border: 1px solid #d8dde7;
+  border-radius: 8px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+  padding: 14px;
+}
+
+.panel-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.icon-button,
+.primary-action {
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 6px;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 11px;
+}
+
+.icon-button {
+  background: #ffffff;
+  color: #26344d;
+}
+
+.icon-button:hover {
+  background: #f5f7fb;
+}
+
+.primary-action {
+  background: #2557a7;
+  border-color: #2557a7;
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 12px;
+  min-height: 44px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.field span {
+  color: #4b5565;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+input,
+textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #111827;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #2557a7;
+  box-shadow: 0 0 0 3px rgba(37, 87, 167, 0.12);
+}
+
+input {
+  min-height: 40px;
+  padding: 0 11px;
+}
+
+.segmented {
+  background: #eef1f5;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 10px;
+  padding: 4px;
+}
+
+.segmented button {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  min-height: 34px;
+}
+
+.segmented button.selected {
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.12);
+  color: #2557a7;
+  font-weight: 700;
+}
+
+.novel-area,
+.yaml-area {
+  flex: 1;
+  line-height: 1.7;
+  min-height: 360px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.yaml-area {
+  background: #111827;
+  color: #e8eef8;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.inspector {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.info-section {
+  min-height: 160px;
+  padding: 12px;
+}
+
+.info-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.info-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #26344d;
+  line-height: 1.45;
+  padding: 9px 10px;
+}
+
+.muted {
+  color: #758195;
+  padding: 8px 0;
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .metric-strip,
+  .workbench,
+  .inspector {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    padding: 10px;
+  }
+
+  .toolbar {
+    justify-content: stretch;
+  }
+
+  .icon-button,
+  .primary-action {
+    width: 100%;
+  }
+}
