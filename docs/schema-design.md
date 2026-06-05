@@ -4,6 +4,10 @@
 
 这个 Schema 的目标是让小说转剧本结果同时满足三件事：可编辑、可校验、可继续生产。作者可以直接修改 YAML；工具可以用 Schema 判断字段是否齐全；后续也能把同一份 YAML 转成 Markdown、分镜表或拍摄清单。
 
+## 正式 Schema 文件
+
+正式 YAML Schema 定义见 [script-schema.yaml](script-schema.yaml)。该文件采用 JSON Schema 结构并保存为 YAML，便于评委直接查看字段类型、必填项、枚举值和最小数量约束；应用内校验逻辑位于 `src/shared/schema.ts`，与该文档保持同一组核心约束。
+
 ## 顶层结构
 
 ```yaml
@@ -39,6 +43,7 @@ quality_report:
 ## 关键约束
 
 - `chapters` 至少 3 个，贴合题目“3 个章节以上”的要求。
+- `meta.source_chapter_count` 至少为 3，明确记录原始小说满足三章要求。
 - 每个 `chapter` 至少对应一个 `scene`，避免只生成章节摘要而没有剧本内容。
 - 每个 `scene` 必须有地点、时间、戏剧目标、节拍和对白，保证能被继续编辑为分场剧本。
 - `characters` 记录角色目标，而不只记录姓名，方便后续检查人物动机是否连续。

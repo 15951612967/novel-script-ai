@@ -102,7 +102,7 @@ continuity_notes: []
 quality_report: {}
 ```
 
-更完整的设计说明见 [docs/schema-design.md](docs/schema-design.md)。
+正式 Schema 定义见 [docs/script-schema.yaml](docs/script-schema.yaml)，设计原因见 [docs/schema-design.md](docs/schema-design.md)。
 
 ## 验证
 

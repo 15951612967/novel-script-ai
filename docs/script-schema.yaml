@@ -1,0 +1,158 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://example.local/qiniu/novel-script-ai/script-schema.yaml"
+title: "Novel-to-Screenplay YAML Schema"
+description: "AI 小说转剧本工具输出的结构化剧本 YAML Schema。"
+type: object
+additionalProperties: false
+required:
+  - meta
+  - characters
+  - chapters
+  - scenes
+  - continuity_notes
+  - quality_report
+properties:
+  meta:
+    type: object
+    additionalProperties: false
+    required:
+      - title
+      - source_chapter_count
+      - style_preset
+    properties:
+      title:
+        type: string
+        minLength: 1
+        description: "作品标题。"
+      source_chapter_count:
+        type: integer
+        minimum: 3
+        description: "原始小说章节数，至少 3 章。"
+      style_preset:
+        type: string
+        enum:
+          - webdrama
+          - film
+          - audio
+        description: "剧本风格预设：短剧、电影或广播剧。"
+  characters:
+    type: array
+    minItems: 1
+    description: "角色清单，用于保持人物目标和关系连续。"
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - role
+        - goal
+      properties:
+        id:
+          type: string
+          pattern: "^char_[a-z0-9_]+$"
+        name:
+          type: string
+          minLength: 1
+        role:
+          type: string
+          minLength: 1
+        goal:
+          type: string
+          minLength: 1
+  chapters:
+    type: array
+    minItems: 3
+    description: "分章结构，至少 3 章。"
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - title
+        - summary
+      properties:
+        id:
+          type: string
+          pattern: "^ch[0-9]{2,}$"
+        title:
+          type: string
+          minLength: 1
+        summary:
+          type: string
+          minLength: 1
+  scenes:
+    type: array
+    minItems: 3
+    description: "分场剧本。每个章节至少需要一个对应场景。"
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - chapter_id
+        - location
+        - time
+        - dramatic_goal
+        - beats
+        - dialogue
+      properties:
+        id:
+          type: string
+          minLength: 1
+        chapter_id:
+          type: string
+          pattern: "^ch[0-9]{2,}$"
+          description: "关联 chapters[].id。"
+        location:
+          type: string
+          minLength: 1
+        time:
+          type: string
+          minLength: 1
+        dramatic_goal:
+          type: string
+          minLength: 1
+          description: "该场戏承担的冲突、信息或情绪目标。"
+        beats:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+        dialogue:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            required:
+              - character
+              - line
+            properties:
+              character:
+                type: string
+                minLength: 1
+              line:
+                type: string
+                minLength: 1
+  continuity_notes:
+    type: array
+    description: "贯穿章节的道具、悬念、人物动机和风格连续性备注。"
+    items:
+      type: string
+  quality_report:
+    type: object
+    additionalProperties: false
+    required:
+      - completeness_score
+      - issues
+    properties:
+      completeness_score:
+        type: integer
+        minimum: 0
+        maximum: 100
+      issues:
+        type: array
+        items:
+          type: string
