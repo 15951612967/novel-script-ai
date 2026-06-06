@@ -113,13 +113,3 @@ npm run build
 
 当前测试覆盖：分章、Schema 校验、mock provider、API、Markdown 导出。
 
-## GitHub 上传
-
-```powershell
-git init
-git add .
-git commit -m "feat: build novel to script ai tool"
-git branch -M main
-git remote add origin <你的 GitHub 仓库地址>
-git push -u origin main
-```
