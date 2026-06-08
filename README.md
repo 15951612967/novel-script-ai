@@ -115,3 +115,4 @@ npm run build
 
 ## demo
 novel-script-ai-demo.webm
+https://www.bilibili.com/video/BV1tcEM6JE2i/?spm_id_from=333.1387.homepage.video_card.click
