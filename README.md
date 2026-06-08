@@ -113,3 +113,5 @@ npm run build
 
 当前测试覆盖：分章、Schema 校验、mock provider、API、Markdown 导出。
 
+## demo
+novel-script-ai-demo.webm
